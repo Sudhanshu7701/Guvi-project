@@ -1,0 +1,60 @@
+CREATE DATABASE music_streaming;
+
+USE music_streaming;
+
+-- 1. Users Table
+CREATE TABLE users (
+    user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    is_premium BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Music Table
+CREATE TABLE music (
+    track_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    artist VARCHAR(100) NOT NULL,
+    album VARCHAR(100),
+    genre VARCHAR(50),
+    path VARCHAR(255) NOT NULL,  -- File path or URL to the music file
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 3. Playlists Table
+CREATE TABLE playlists (
+    playlist_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    user_id BIGINT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+-- 4. Playlist_Tracks Table (Many-to-Many Relationship)
+CREATE TABLE playlist_tracks (
+    playlist_id BIGINT NOT NULL,
+    track_id BIGINT NOT NULL,
+    PRIMARY KEY (playlist_id, track_id),
+    FOREIGN KEY (playlist_id) REFERENCES playlists(playlist_id) ON DELETE CASCADE,
+    FOREIGN KEY (track_id) REFERENCES music(track_id) ON DELETE CASCADE
+);
+
+-- 5. Subscriptions Table
+CREATE TABLE subscriptions (
+    subscription_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+-- 6. User_Favorites Table (Many-to-Many Relationship)
+CREATE TABLE user_favorites (
+    user_id BIGINT NOT NULL,
+    track_id BIGINT NOT NULL,
+    PRIMARY KEY (user_id, track_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (track_id) REFERENCES music(track_id) ON DELETE CASCADE
+);
