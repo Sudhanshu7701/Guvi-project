@@ -1,0 +1,38 @@
+// Sample Data
+const sampleTracks = [
+    { id: 1, title: "Track One", artist: "Artist A", album: "Album X", path: "/music/track1.mp3", cover: "cover1.jpg" },
+    { id: 2, title: "Track Two", artist: "Artist B", album: "Album Y", path: "/music/track2.mp3", cover: "cover2.jpg" },
+];
+
+const recommendationsContainer = document.getElementById("recommendations");
+const audioPlayer = document.getElementById("audio-player");
+const albumCover = document.getElementById("album-cover");
+const trackTitle = document.getElementById("track-title");
+const trackArtist = document.getElementById("track-artist");
+const playBtn = document.getElementById("play-btn");
+let currentTrackIndex = 0;
+
+// Load Recommendations
+sampleTracks.forEach(track => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.innerHTML = `
+        <img src="${track.cover}" alt="${track.title} Cover">
+        <p class="card-title">${track.title}</p>
+        <p class="card-artist">${track.artist}</p>
+    `;
+    card.onclick = () => playTrack(track);
+    recommendationsContainer.appendChild(card);
+});
+
+// Play Track
+function playTrack(track) {
+    albumCover.src = track.cover;
+    trackTitle.textContent = track.title;
+    trackArtist.textContent = track.artist;
+    audioPlayer.src = track.path;
+    audioPlayer.play();
+    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+}
+
+// Play
