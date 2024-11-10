@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamify - Music Streaming</title>
+    <link rel="stylesheet" href="styless.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <h2>🎶 Streamify</h2>
+        <ul class="nav">
+            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-search"></i> Search</a></li>
+            <li><a href="#"><i class="fas fa-bookmark"></i> Your Library</a></li>
+        </ul>
+        <button class="button premium-btn">Upgrade to Premium</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+        <header class="header">
+            <input type="text" placeholder="Search for Artists, Songs, or Albums" class="search-bar">
+        </header>
+
+        <!-- Recommendations Section -->
+        <section class="section">
+            <h2>Recommended for You</h2>
+            <div class="cards-container" id="recommendations">
+                <!-- Dynamic Music Card Items -->
+            </div>
+        </section>
+
+        <!-- Music Player (Fixed at Bottom) -->
+        <footer class="music-player">
+            <div class="player-details">
+                <img id="album-cover" src="default-cover.jpg" alt="Album cover" class="album-cover">
+                <div class="track-info">
+                    <p id="track-title">Track Title</p>
+                    <p id="track-artist">Artist Name</p>
+                </div>
+            </div>
+            <audio id="audio-player" controls>
+                <source id="audio-source" src="" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="player-controls">
+                <button class="control-btn" id="prev-btn"><i class="fas fa-step-backward"></i></button>
+                <button class="control-btn" id="play-btn"><i class="fas fa-play"></i></button>
+                <button class="control-btn" id="next-btn"><i class="fas fa-step-forward"></i></button>
+            </div>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
